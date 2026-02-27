@@ -24,7 +24,7 @@
 
         /* Emoji background */
         .page-wrapper::before {
-            content: "💄 💅 🎀 👑 🦋 💰 🌺 🛍️ ✨";
+            content: "💄  👑 🎀 🛍️";
             position: fixed;
             top: 50%;
             left: 50%;

@@ -88,7 +88,7 @@
 
 <div class="receipt">
     <div class="receipt-header">
-        <div class="content"> 💄  🎀 👑  🌷 🛍️ </div>
+        <div class="content"> 💄  👑 🎀  🛍️ </div>
         
         <div class="bold">COSMETIC BEAUTY & SKINCARE</div>
         <small>Jl. Pleret No. 123, Yogyakarta</small><br>

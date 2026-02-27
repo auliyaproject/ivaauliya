@@ -61,28 +61,55 @@
 
                 @endif
 
-                {{-- ================= KASIR ================= --}}
-                @if(session('role') === 'kasir')
 
-                    <li>
-                        <a href="{{ route('kasir.index') }}"
-                           class="{{ request()->routeIs('kasir.index') ? 'active' : '' }}">
-                            🏷️ Penjualan
-                        </a>
-                    </li>
 
-                    <li>
-                        <a href="{{ route('pelanggan.index') }}"
-                           class="{{ request()->routeIs('pelanggan.*') ? 'active' : '' }}">
-                            👥 Pelanggan
-                        </a>
-                    </li>
+               {{-- ================= KASIR ================= --}}
+@if(session('role') === 'kasir')
 
-                @endif
+    {{-- Menu Kasir --}}
+    <li>
+        <a href="{{ route('kasir.index') }}"
+           class="{{ request()->routeIs('kasir.index') ? 'active' : '' }}">
+            🏷️ Penjualan
+        </a>
+    </li>
 
-            </ul>
-        </nav>
+    <li>
+        <a href="{{ route('pelanggan.index') }}"
+           class="{{ request()->routeIs('pelanggan.*') ? 'active' : '' }}">
+            👥 Pelanggan
+        </a>
+    </li>
 
+
+@endif
+
+
+
+
+{{-- ================= SWITCH ROLE ================= --}}
+<li class="mt-4">
+    <form action="{{ route('pilih.role') }}" method="POST">
+        @csrf
+
+        <select name="role"
+            onchange="this.form.submit()"
+            class="w-full px-3 py-2 rounded-lg bg-gray-100 border border-gray-300 text-sm
+                   focus:outline-none focus:ring-2 focus:ring-blue-400">
+
+            <option value="kasir"
+                {{ session('role') === 'kasir' ? 'selected' : '' }}>
+                🏪 Kasir
+            </option>
+
+            <option value="admin"
+                {{ session('role') === 'admin' ? 'selected' : '' }}>
+                👑 Admin
+            </option>
+
+        </select>
+    </form>
+</li>
         {{-- ================= LOGOUT ================= --}}
         <form method="POST" action="{{ route('logout') }}" class="logout-form">
             @csrf
@@ -92,7 +119,7 @@
         </form>
 
         <footer class="sidebar-footer">
-            © 2026 ipoll
+            © 2026 
         </footer>
     </aside>
 

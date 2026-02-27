@@ -25,7 +25,7 @@
 
         /* Emoji Background */
         .page-wrapper::before {
-            content: "💄 💅 🎀 👑 🦋 💰 🌺 🛍️ ✨";
+            content: "💄  👑 🎀 🛍️";
             position: fixed;
             top: 50%;
             left: 50%;
@@ -77,7 +77,7 @@
 
 <div class="page-wrapper">
     <div class="card p-4">
-        <div class="card-header">💄🎀 Login  👑🛍️</div>
+        <div class="card-header"> Login </div>
 
         <div class="card-body">
 

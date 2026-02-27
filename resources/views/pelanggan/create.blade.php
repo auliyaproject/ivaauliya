@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="p-8 bg-gray-100 min-h-screen">
-    <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow">
-        <h1 class="text-2xl font-bold mb-4">Tambah Pelanggan Baru</h1>
+<div class="p-6 bg-gray-100 min-h-screen">
+    <div class="max-w-md mx-auto bg-white p-6 rounded-xl shadow">
+        <h1 class="text-2xl font-bold mb-4">Tambah Pelanggan</h1>
 
         @if($errors->any())
             <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
-                <ul>
+                <ul class="list-disc pl-5">
                     @foreach($errors->all() as $err)
                         <li>{{ $err }}</li>
                     @endforeach
@@ -15,25 +15,31 @@
             </div>
         @endif
 
-        <form action="{{ route('pelanggan.store') }}" method="POST">
+        <form method="POST" action="{{ route('pelanggan.store') }}">
             @csrf
+
             <div class="mb-4">
-                <label class="block mb-1 font-medium">Nama Pelanggan</label>
-                <input type="text" name="nama_pelanggan" class="w-full p-2 border rounded" required>
+                <label class="block font-semibold mb-1">Nama Pelanggan</label>
+                <input type="text" name="nama_pelanggan"
+                       class="w-full p-2 border rounded"
+                       required>
             </div>
 
             <div class="mb-4">
-                <label class="block mb-1 font-medium">Alamat</label>
-                <input type="text" name="alamat" class="w-full p-2 border rounded">
+                <label class="block font-semibold mb-1">Alamat</label>
+                <input type="text" name="alamat"
+                       class="w-full p-2 border rounded">
             </div>
 
-            <div class="mb-4">
-                <label class="block mb-1 font-medium">Nomor Telepon</label>
-                <input type="text" name="nomor_telepon" class="w-full p-2 border rounded">
+            <div class="mb-6">
+                <label class="block font-semibold mb-1">Nomor Telepon</label>
+                <input type="text" name="nomor_telepon"
+                       class="w-full p-2 border rounded">
             </div>
 
-            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                Simpan Pelanggan
+            <button type="submit"
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold">
+                Simpan
             </button>
         </form>
     </div>

@@ -8,15 +8,16 @@ use App\Models\Pelanggan;
 class PelangganController extends Controller
 {
     // =============================
-    // TAMPILKAN DATA
+    // TAMPILKAN DATA + SEARCH
     // =============================
-    public function index()
+    public function index(Request $request)
     {
-        $search = request('search');
+        $search = $request->search;
 
-    $pelanggans = Pelanggan::when($search, function ($query, $search) {
-        $query->where('nama_pelanggan', 'like', "%{$search}%");
-    })->get();
+        $pelanggans = Pelanggan::when($search, function ($query, $search) {
+            $query->where('nama_pelanggan', 'like', "%{$search}%");
+        })->get();
+
         return view('pelanggan.index', compact('pelanggans'));
     }
 
@@ -33,17 +34,13 @@ class PelangganController extends Controller
     // =============================
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'nama_pelanggan' => 'required|string|max:255',
             'alamat'         => 'nullable|string|max:255',
-            'nomor_telepon'        => 'nullable|string|max:20',
+            'nomor_telepon'  => 'nullable|string|max:20',
         ]);
 
-        Pelanggan::create([
-            'nama_pelanggan' => $request->nama_pelanggan,
-            'alamat'         => $request->alamat,
-            'nomor_telepon'        => $request->telepon,
-        ]);
+        Pelanggan::create($validated);
 
         return redirect()
             ->route('pelanggan.index')
@@ -51,7 +48,7 @@ class PelangganController extends Controller
     }
 
     // =============================
-    // 🔥 FORM EDIT (INI YANG HILANG)
+    // FORM EDIT
     // =============================
     public function edit($id)
     {
@@ -60,25 +57,34 @@ class PelangganController extends Controller
     }
 
     // =============================
-    // 🔥 UPDATE DATA
+    // UPDATE DATA
     // =============================
     public function update(Request $request, $id)
     {
-        $request->validate([
+        $validated = $request->validate([
             'nama_pelanggan' => 'required|string|max:255',
             'alamat'         => 'nullable|string|max:255',
-            'nomor_telepon'        => 'nullable|string|max:20',
+            'nomor_telepon'  => 'nullable|string|max:20',
         ]);
 
         $pelanggan = Pelanggan::findOrFail($id);
-        $pelanggan->update([
-            'nama_pelanggan' => $request->nama_pelanggan,
-            'alamat'         => $request->alamat,
-            'nomor_telepon'        => $request->telepon,
-        ]);
+        $pelanggan->update($validated);
 
         return redirect()
             ->route('pelanggan.index')
             ->with('success', 'Data pelanggan berhasil diperbarui!');
+    }
+
+    // =============================
+    // HAPUS DATA
+    // =============================
+    public function destroy($id)
+    {
+        $pelanggan = Pelanggan::findOrFail($id);
+        $pelanggan->delete();
+
+        return redirect()
+            ->route('pelanggan.index')
+            ->with('success', 'Pelanggan berhasil dihapus!');
     }
 }

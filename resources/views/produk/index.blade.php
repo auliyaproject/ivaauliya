@@ -42,7 +42,4 @@
 </tbody>
         </table>
     </div>
- <p class="text-center text-sm text-gray-400 mt-8">
-            © 2026 
-        </p>
 @endsection

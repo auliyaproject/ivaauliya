@@ -11,7 +11,6 @@ class Pelanggan extends Model
 
     protected $table = 'pelanggans';
 
-    // Kolom yang bisa diisi lewat mass assignment
     protected $fillable = [
         'nama_pelanggan',
         'alamat',

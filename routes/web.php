@@ -147,3 +147,14 @@ Route::middleware(['auth', 'kasir'])->group(function () {
 
    
 });
+
+
+Route::post('/pilih-role.post', function (\Illuminate\Http\Request $request) {
+    $request->validate([
+        'role' => 'required|in:admin,kasir',
+    ]);
+
+    session(['role' => $request->role]);
+
+    return back(); // kembali ke halaman sebelumnya
+})->name('pilih_role.post');

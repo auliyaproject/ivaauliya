@@ -1,57 +1,51 @@
-/* === Tema Buah-Buahan Segar 💄👑🎀 === */
-/* Reset dan base (Disederhanakan dan Ditingkatkan) */
+/* =========================================
+   RESET & BASE
+========================================= */
 * {
     box-sizing: border-box;
 }
-body, html {
+
+html, body {
     margin: 0;
     padding: 0;
+    height: 100%;
     font-family: 'Inter', sans-serif;
-    background-color: #dab6d4; /* Ganti dengan warna background utama yang Anda inginkan */
+    background: linear-gradient(120deg, #fbe3fc, #d9e9f1);
+    background-size: 400% 400%;
+    animation: gradient 12s ease infinite;
     color: #2d2d2d;
-    height: 100%; /* PENTING: Menggunakan 100% tinggi */
-    overflow: hidden; /* Mengontrol scrollbar hanya di main-content */
+    overflow: hidden; /* scroll DIKUNCI di body */
 }
 
-/* Wrapper flex container untuk sidebar dan konten */
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* =========================================
+   APP WRAPPER
+========================================= */
 .app-wrapper {
     display: flex;
-    height: 100vh; /* Memastikan wrapper mengambil 100% tinggi viewport */
-    width: 100vw; /* Memastikan wrapper mengambil 100% lebar viewport */
+    width: 100%;
+    height: 100dvh; /* AMAN di HP */
+    overflow: hidden;
 }
 
-/* Sidebar (Lebar Diperbaiki!) */
+/* =========================================
+   SIDEBAR (TETAP DI KIRI)
+========================================= */
 .sidebar {
-    /* MENGUBAH WIDTH dari 750px (terlalu besar) menjadi 280px */
-    width: 280px; 
-    background-color: #1f2937; /* abu tua navy */
+    width: 280px;
+    min-width: 280px;
+    background-color: #1f2937;
     color: #faf8f8;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    /* MENGUBAH PADDING Vertikal (misal 20px) dan Horizontal (misal 30px) */
-    padding: 20px 30px; 
+    padding: 20px 30px;
     box-shadow: 3px 0 10px rgb(0 0 0 / 0.1);
-}
-.content-footer-text {
-    /* [Tambahkan/Verifikasi Properti Ini] */
-    position: absolute;
-    bottom: 10px; /* Jarak dari bawah */
-    left: 50%; /* Mulai dari tengah */
-    transform: translateX(-50%); /* Geser ke kiri untuk memusatkan */
-    
-    /* Properti Tampilan */
-    width: 100%; 
-    text-align: center;
-    font-size: 0.9rem; 
-    color: #6c757d; 
-}
-/* Konten utama */
-.main-content {
-    flex-grow: 1; /* PENTING: Mengambil semua sisa lebar layar */
-    background-color:#dab6d4;
-    padding: 40px 60px;
-    overflow-y: auto; /* Memungkinkan konten utama bisa di-scroll secara vertikal */
+    overflow-y: auto;
 }
 
 .sidebar-logo {
@@ -59,7 +53,6 @@ body, html {
     font-weight: 700;
     margin-bottom: 40px;
     color: #dde0f8;
-    user-select: none;
 }
 
 .sidebar-nav ul {
@@ -81,317 +74,150 @@ body, html {
     font-size: 1.1rem;
     padding: 8px 12px;
     border-radius: 6px;
-    transition: background-color 0.25s ease, color 0.25s ease;
+    transition: 0.25s ease;
 }
 
-.sidebar-nav ul li a span {
-    margin-right: 12px;
-    font-size: 1.3rem;
-}
-
-/* Active menu & hover */
-.sidebar-nav ul li a.active,
-.sidebar-nav ul li a:hover {
+.sidebar-nav ul li a:hover,
+.sidebar-nav ul li a.active {
     background-color: #dab6d4;
     color: white;
 }
 
-/* Logout button */
-.logout-form {
-    margin-top: 30px;
+/* SIDEBAR HARUS FLEX COLUMN */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* kunci tinggi layar */
 }
 
+/* LOGOUT DORONG KE BAWAH */
+.logout-form {
+    margin-top: auto;
+}
+
+/* TOMBOL LOGOUT */
 .logout-button {
     width: 100%;
-    padding: 10px 0;
-    background-color: #b91c1c;
+    padding: 10px;
+    background-color: #dab6d4;
     border: none;
     color: white;
     font-weight: 600;
     font-size: 1.1rem;
-    cursor: pointer;
     border-radius: 6px;
-    transition: background-color 0.3s ease;
+    cursor: pointer;
 }
 
 .logout-button:hover {
-    background-color: #7f1212;
-    
+    background-color: #d464b6;
 }
-/* Footer sidebar */
+
+/* FOOTER TETAP DI BAWAH */
 .sidebar-footer {
-    margin-top: 25px;
+    margin-top: 15px;
     font-size: 0.85rem;
     text-align: center;
     color: #eecee0;
 }
 
-/* Konten utama */
-/* Konten utama: Gabungan Tampilan + Wallpaper */
+/* =========================================
+   MAIN CONTENT (SCROLL KE BAWAH)
+========================================= */
 .main-content {
-    flex-grow: 1;
+    flex: 1;
+    height: 100dvh;
+    overflow-y: auto;
+    overflow-x: hidden;
     padding: 40px 60px;
-    /* HAPUS background-color, background, animation, background-attachment */
-    background-color: transparent; /* Pastikan transparan */
-    overflow-y: auto; /* Biarkan scroll di sini */
-    position: relative; 
-    min-height: 100%;
+    position: relative;
     color: #000000;
 }
-/* Card putih */
+
+/* Emoji watermark */
+.main-content::before {
+    content: "💄 👑 🎀 🛍️";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 5rem;
+    opacity: 0.08;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* =========================================
+   CARD
+========================================= */
 .card {
     background: rgba(255, 255, 255, 0);
     border-radius: 10px;
     padding: 30px 35px;
-     border: 1px solid #ec4899;
+    border: 1px solid #ec4899;
     box-shadow: 0 8px 16px rgb(0 0 0 / 0.1);
     max-width: 720px;
     margin: auto;
+    position: relative;
+    z-index: 2;
 }
 
-/* Judul halaman */
-h1 {
-   color:  #000000;
-    font-weight: 700;
-    margin-bottom: 25px;
-    user-select: none;
-}
-
-/* Form styling */
+/* =========================================
+   FORM & TABLE
+========================================= */
 label {
-    display: block;
-    margin-top: 12px;
     font-weight: 600;
-    color: #000000;
 }
 
-input[type="text"],
-input[type="number"],
-input[type="date"],
-select {
+input, select {
     width: 100%;
     padding: 8px 12px;
-    margin-top: 6px;
     border: 1px solid #e58fc1;
     border-radius: 6px;
-    font-size: 1rem;
-    color: #111827;
-    transition: border-color 0.25s ease;
 }
 
-input[type="text"]:focus,
-input[type="number"]:focus,
-input[type="date"]:focus,
-select:focus {
-    outline: none;
-    border-color: #dab6d4;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
-}
-
-/* Tombol simpan */
-button[type="submit"] {
-    margin-top: 30px;
-    background-color: #c5229c;
-    color: white;
-    font-weight: 700;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1.1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    user-select: none;
-    box-shadow: 0 6px 12px rgba(206, 111, 209, 0.5);
-    transition: background-color 0.3s ease;
-}
-
-button[type="submit"]:hover {
-    background-color: #a31674;
-}
-
-/* Table dasar */
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
 }
 
 th, td {
-    padding: 12px 10px;
-    border-bottom: 1px solid #000000;
-    text-align: left;
-    color: #000000;
+    padding: 12px;
+    border-bottom: 1px solid #000;
 }
 
-th {
-    background-color: #faf9f9;
-    color: rgb(0, 0, 0);
-    font-weight: 700;
-}
-
-td input[type="number"],
-td select {
-    width: 100%;
-    padding: 6px 8px;
-    border: 1px solid #000000;
-    border-radius: 6px;
-    font-size: 1rem;
-}
-
-.action-btn {
-    background: transparent;
-    border: none;
-    color:  #d143be;
-    font-weight: 700;
-    cursor: pointer;
-    font-size: 1.3rem;
-}
-
-/* Responsive minor (desktop only) */
-@media (max-width: 1024px) {
-    .main-content {
-        padding: 30px 20px;
-    }
-    .sidebar {
-        width: 200px;
-        padding: 25px 15px;
-    }
-}
-
-@media (max-width: 768px) {
-    .app-wrapper {
-        flex-direction: column;
-        height: auto;
-    }
-    .sidebar {
-        width: 100%;
-        flex-direction: row;
-        justify-content: space-around;
-        padding: 15px 10px;
-    }
-    .sidebar-logo, .sidebar-footer, .logout-form {
-        display: none;
-    }
-    .main-content {
-        padding: 20px 15px;
-    }
-}
-body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(120deg, #fbe3fc, #d9e9f1);
-    background-size: 400% 400%;
-    animation: gradient 12s ease infinite;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-   color: #b690a3;
-}
-
-@keyframes gradient {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-.container {
-    background: rgba(255, 255, 255, 0.85);
-    padding: 20px 70px;
-    border-radius: 20px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
-    text-align: center;
-    backdrop-filter: blur(8px);
-}
-
-/* 💄 Judul Halaman */
-h1 {
-    font-size: 2rem;
-    margin-bottom: 15px;
-    color: #000000;
-}
-
-/* 💅 Teks tambahan */
-p {
-    font-size: 1.1rem;
-    margin-bottom: 20px;
-}
-
-/* 🎀 Tombol bergaya buah */
-button {
-    background: linear-gradient(90deg, #faabef, #c7609f, #9b7c8b);
-    border: none;
-    padding: 12px 30px;
-    color: white;
-    border-radius: 30px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: 0.4s ease;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
-}
-
-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
-}
-
-/* 🌟 Emoji buah-buahan di latar belakang */
-  /* KUNCI SOLUSI 2: Fixed di Viewport */
-.main-content::before {
-    content: "🌈 💄 💅 🎀 👑 💎 💰 🌷 🛍️ ✨";
-    position: fixed; 
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); 
-    font-size: 5rem;
-    opacity: 0.08; 
-    pointer-events: none;
-    white-space: nowrap;
-    z-index: 1; 
-}
-/* Statistik Grid Horizontal */
+/* =========================================
+   STAT GRID (TIDAK BERUBAH)
+========================================= */
 .stats-grid {
     display: flex;
-    justify-content: space-between; /* Jarak antar kartu */
-    gap: 20px; /* Spasi antar kartu */
+    gap: 20px;
+    flex-wrap: wrap;
     margin-bottom: 40px;
-    flex-wrap: wrap; /* Agar responsif di layar kecil */
-    z-index: 2; /* Agar di atas background emoji */
+    z-index: 2;
 }
 
-/* Kartu Statistik */
 .stat-card {
-    flex: 1; /* Lebar sama rata */
-    min-width: 220px; /* Agar tidak terlalu kecil di layar sempit */
+    flex: 1;
+    min-width: 220px;
     background-color: rgba(0, 0, 0, 0.85);
     padding: 25px 20px;
     border-radius: 20px;
     text-align: center;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-    color: #000000;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: #000;
 }
 
+/* =========================================
+   RESPONSIVE (HP)
+   ❌ TIDAK MENGUBAH POSISI SIDEBAR
+========================================= */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 220px;
+        min-width: 220px;
+        padding: 20px;
+    }
 
-.stat-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.4);
-}
-
-/* Judul dalam kartu */
-.stat-card h2 {
-    font-size: 1.2rem;
-    margin-bottom: 15px;
-    color: #000000;
-}
-
-/* Angka besar */
-.stat-card p {
-    font-size: 2rem;
-    font-weight: 700;
-    margin: 0;
-    color: #000000;
+    .main-content {
+        padding: 20px;
+    }
 }

@@ -85,7 +85,7 @@
 
 {{-- EMOJI BACKGROUND 1 BARIS --}}
 <div class="emoji-row">
-   🌈 💄 💅 🎀 👑 💎 💰 🌷 🛍️
+   💄  👑 🎀 🛍️
 </div>
 
 <div class="container d-flex justify-content-center align-items-center vh-100 position-relative">
